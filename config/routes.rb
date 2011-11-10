@@ -36,10 +36,9 @@ DepotV2::Application.routes.draw do
   #   end
 
   # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
+   resources :products do
+     get :who_bought, :on => :member
+   end
 
   # Sample resource route with more complex sub-resources
   #   resources :products do

@@ -2,7 +2,8 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.paginate :page=>params[:page], :order=>'created_at desc',
+      :per_page => 10
 
     respond_to do |format|
       format.html # index.html.erb
@@ -47,10 +48,13 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(params[:order])
-
+	@order.add_line_items_from_cart(current_cart)
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+		Cart.destroy(session[:cart_id])
+		session[:cart_id] = nil
+		
+        format.html { redirect_to(store_url , :notice => 'Thank you for your order.')}#@order, notice: 'Order was successfully created.' }
         format.json { render json: @order, status: :created, location: @order }
       else
         format.html { render action: "new" }
