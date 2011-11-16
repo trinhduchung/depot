@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
+  cache_page :index
   def index
     @products = Product.all
 
@@ -40,6 +41,7 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
+    expire_page :action => :index
     @product = Product.new(params[:product])
 
     respond_to do |format|

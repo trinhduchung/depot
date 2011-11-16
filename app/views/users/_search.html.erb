@@ -1,0 +1,22 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<table> <tr>
+    <th>Username</th>
+    <th>Hashed Password</th> </tr>
+  <% for user in @users %>
+    <tr>
+      <td><%=h user.name %></td>
+      <td><%=h user.hashed_password %>
+      </td>
+      <td><%= link_to 'Show', :action => 'show', :id => user %></td>
+      <td><%= link_to 'Edit', :action => 'edit', :id => user %></td>
+      <td><%= link_to 'Destroy', { :action => 'destroy', :id => user },
+          :confirm => 'Are you sure?', :method => :post %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to 'New user', :action => 'new' %>

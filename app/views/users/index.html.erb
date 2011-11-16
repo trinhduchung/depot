@@ -1,4 +1,5 @@
 <h1>Listing users</h1>
+<%= render :partial => "search" %>
 <% if notice %>
 <p id="notice" ><%= notice %></p>
 <% end %>
@@ -15,11 +16,14 @@
     <td><%= user.name %></td>
     <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => user },
+                                  :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
-
 <br />
 
 <%= link_to 'New User', new_user_path %>
+<p>
+  <%= will_paginate @users %>
+</p>
